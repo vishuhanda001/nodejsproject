@@ -1,0 +1,71 @@
+<h2>
+    Posgres Database Excess</h2>
+<h3>Getting existing data</h3>
+<!--<button (click)="getdatafromdb()">getdatafromdb</button>-->
+
+<table style="width:100%">
+    <tr>
+        <th>index</th>
+        <th>Ids</th>
+        <th>Name</th>
+        <th>Roll No</th>
+        <th>Directions</th>
+    </tr>
+    <tr *ngFor="let datafromposgres of datasfromposgres; let i=index">
+        <td>{{i}}</td>
+        <td> {{datafromposgres.id}}</td>
+        <td> {{datafromposgres.name}}</td>
+        <td> {{datafromposgres.rollno}}</td>
+        <td> {{datafromposgres.directions}}</td>
+    </tr>
+</table>
+<br>
+
+<h3>Post data to table</h3>
+
+<form novalidate (ngSubmit)="onSubmit()" [formGroup]='Postform'>
+    <label>
+        <span>name</span>
+        <input type="text" placeholder="Your name" formControlName="name">
+    </label>
+    <label>
+        <span>rollno</span>
+        <input type="text" placeholder="Your rollno " formControlName="rollno">
+    </label>
+    <label>
+        <span>directions</span>
+        <input type="text" placeholder="Direction" formControlName="direction">
+    </label>
+    <button type="submit" [disabled]="Postform.invalid">Post into DB</button>
+</form>
+<br>
+<h4>Search by id</h4>
+
+<input #id type="text">
+<button (click)="searchbyid(id.value)">Search by Id</button>
+
+<div *ngIf="searcheddata==''">No Id Found</div>
+<table style="width:100%" *ngIf="searcheddata">
+    <tr>
+        <!--<th>index</th>-->
+        <th>Ids</th>
+        <th>Name</th>
+        <th>Roll No</th>
+        <th>Directions</th>
+    </tr>
+    <tr>
+        <td>{{searcheddata[0].id}}</td>
+        <td>{{searcheddata[0].name}}</td>
+        <td>{{searcheddata[0].rollno}}</td>
+        <td>{{searcheddata[0].directions}}</td>
+    </tr>
+</table>
+<br>
+<br>
+<br>
+<h3>Update table</h3>
+<input placeholder=" id" #idupdate type="text">
+<input placeholder="name" #nameupdate type="text">
+<input placeholder="rollno" #rollnoupdate type="text">
+<input placeholder="direction" #directionupdate type="text">
+<button (click)="updatebyid(idupdate.value,nameupdate.value,rollnoupdate.value,directionupdate.value)">Update by Id</button>
